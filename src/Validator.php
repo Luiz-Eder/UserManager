@@ -11,6 +11,8 @@ class Validator
 
     public function validatePasswordStrength(string $password): bool
     {
-        return strlen($password) >= 8 && preg_match('/[0-9]/', $password) && preg_match('/[A-Z]/', $password);
+        return strlen($password) >= 8
+            && preg_match('/[0-9]/', $password)
+            && preg_match('/[A-Z]/', $password);
     }
 }
