@@ -1,5 +1,6 @@
 # Cadastro e Autenticação de Usuários ⭐
-### Projeto da disciplina Design Patterns & Clean Code. 
+
+Projeto da disciplina Design Patterns & Clean Code, que simula o cadastro, login e reset de senha de usuários. Desenvolvido com POO, princípios DRY e KISS, com hash de senha para segurança, testes de diferentes cenários e código organizado seguindo PSR-12.
 
 
 
@@ -25,6 +26,14 @@ Eder Luiz - 1971959
 - Permite atualizar a senha de um usuário existente.
 - Aplica novamente as regras de senha forte.
 - Substitui pela nova senha com `password_hash`.
+
+---
+
+## Limitações
+
+- Os dados dos usuários não são gravados; ao fechar o navegador ou reiniciar o servidor, todos os cadastros e alterações de senha se perdem.
+- O sistema não possui interface gráfica completa, funcionando apenas como simulação via index.php.
+-  Funciona apenas localmente com XAMPP, sem suporte para produção.
 
 ---
 
@@ -73,13 +82,13 @@ Saída esperada: Sucesso: Login realizado. Bem-vindo, Poliana!
 - Clonar o repositório no GitHub.
 - Colocar o projeto dentro da pasta htdocs do XAMPP.
 - Iniciar o servidor Apache no XAMPP.
-- Acessar no navegador: http://localhost/projeto-usuarios/index.php
+- Acessar no navegador: http://localhost/UserManager/index.php
 
 ---
 ## Estrutura do Projeto
 
 ```bash
-projeto-usuarios/
+UserManager/
 ├── docs/
 │   └── README.md
 ├── src/
