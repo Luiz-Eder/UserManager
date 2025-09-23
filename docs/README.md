@@ -1,5 +1,6 @@
 # Cadastro e Autenticação de Usuários ⭐
-### Projeto da disciplina Design Patterns & Clean Code. 
+
+Projeto da disciplina Design Patterns & Clean Code, que simula o cadastro, login e reset de senha de usuários. Desenvolvido com POO, princípios DRY e KISS, com hash de senha para segurança, testes de diferentes cenários e código organizado seguindo PSR-12.
 
 
 
