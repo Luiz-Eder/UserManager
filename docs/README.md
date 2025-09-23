@@ -16,14 +16,47 @@ Eder Luiz - 1971959
 - Não permite e-mails duplicados.
 
 ### Login do usuário 
-- Valida se o e-mail e senha estâo corretos.
-- 
+- Valida se o e-mail e senha estão corretos.
+- Senha validada com password_verify.
+
+### Reset de senha
+- Permite atualizar a senha de um usuário existente.
+- Aplica novamente as regras de senha forte.
+- Substitui pela nova senha com password_hash.
+
 ---
 
 ## Exemplos de uso (Caso de testes)
 
-Caso 1: Usuário se registra com o seu nome, email e senha. Saída esperada: cadastrado com sucesso.
+### Caso 1 — Cadastro válido
 
-Caso 2: Usuário se cadastra com email inválido. Saída esperada: “E-mail inválido”
+Entrada: nome Maria Oliveira, email maria@email.com, senha Senha123.
+Saída esperada: Usuário cadastrado com sucesso.
 
-Caso 3: Usuário tenta logar com senha incorreta. Saída esperada: "
+
+### Caso 2 — Cadastro com e-mail inválido
+
+Entrada: nome Pedro, email pedro@@email, senha Senha123.
+Saída esperada: Erro: E-mail inválido.
+
+
+### Caso 3 — Tentativa de login com senha errada
+
+Entrada: email eder@email.com, senha SenhaIncorreta.
+Saída esperada: Erro: Credenciais inválidas.
+
+
+### Caso 4 — Reset de senha válido
+Entrada: id 2, nova senha NovaSenhaPoliana2.
+Saída esperada: Sucesso: Senha de 'Poliana' alterada.
+
+
+### Caso 5 — Cadastro de usuário com e-mail duplicado
+Entrada: email já existente (eder@email.com).
+Saída esperada: Erro: E-mail já está em uso.
+
+
+### Caso 6 — Login após reset de senha (extra)
+Entrada: email poliana@email.com, senha NovaSenhaPoliana2.
+Saída esperada: Sucesso: Login realizado. Bem-vindo, Poliana!
+
