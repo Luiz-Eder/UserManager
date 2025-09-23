@@ -29,6 +29,12 @@ Eder Luiz - 1971959
 
 ---
 
+## Limitações
+
+- Os dados dos usuários não são gravados; ao fechar o navegador ou reiniciar o servidor, todos os cadastros e alterações de senha se perdem.
+- O sistema não possui interface gráfica completa, funcionando apenas como simulação via index.php.
+-  Funciona apenas localmente com XAMPP, sem suporte para produção.
+
 ## Exemplos de uso (Caso de testes)
 
 ### Caso 1 — Cadastro válido
