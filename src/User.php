@@ -1,64 +1,79 @@
 <?php
 
-// Define o espaço de nomes da classe, ajudando a organizar
-// o projeto e evitar conflitos de nomes com outras classes.
-
 namespace App;
 
+require_once __DIR__ . '/User.php';
+require_once __DIR__ . '/Validator.php';
 
-//A classe User representa um usuário do sistema.
-//Os atributos são privados (encapsulamento) para proteger os dados:
-
-class User
+class UserManager
 {
-    private int $id;
-    private string $nome;
-    private string $email;
-    private string $senhaHash;
+    private array $users;
+    private Validator $validator;
 
-
-//É chamado quando um novo usuário é criado.
-// Recebe id, nome, email e senha.
-//Chama o método setPassword para gerar o hash da senha, garantindo segurança desde o início.
-
-    public function __construct(int $id, string $nome, string $email, string $senha)
+    public function __construct()
     {
-        $this->id = $id;
-        $this->nome = $nome;
-        $this->email = $email;
-        $this->setPassword($senha);
+        $this->validator = new Validator();
+        $this->users = [
+            new User(1, 'Eder', 'eder@email.com', 'SenhaEder1'),
+            new User(2, 'Poliana', 'poliana@email.com', 'SenhaPoliana2'),
+        ];
     }
 
-//Recebe a senha em texto puro e gera o hash seguro usando password_hash.
-// Esse hash é o que será armazenado no sistema, nunca a senha em texto puro.
-    public function setPassword(string $senha): void
+    private function findUserByEmail(string $email): ?User
     {
-        $this->senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+        foreach ($this->users as $user) {
+            if ($user->getEmail() === $email) {
+                return $user;
+            }
+        }
+
+        return null;
     }
 
+    public function register(string $nome, string $email, string $senha): string
+    {
+        if (!$this->validator->validateEmail($email)) {
+            return 'Erro: E-mail inválido.';
+        }
 
-    public function verifyPassword(string $senha): bool
-    {
-        return password_verify($senha, $this->senhaHash);
-    }
-    
-    public function getId(): int
-    {
-        return $this->id;
+        if ($this->findUserByEmail($email)) {
+            return 'Erro: E-mail já está em uso.';
+        }
+
+        if (!$this->validator->validatePasswordStrength($senha)) {
+            return 'Erro: A senha deve ter no mínimo 8 caracteres, 1 número e 1 letra maiúscula.';
+        }
+
+        $newId = end($this->users)->getId() + 1;
+        $this->users[] = new User($newId, $nome, $email, $senha);
+
+        return "Sucesso: Usuário '{$nome}' cadastrado.";
     }
 
-    public function getNome(): string
+    public function login(string $email, string $senha): string
     {
-        return $this->nome;
+        $user = $this->findUserByEmail($email);
+
+        if ($user && $user->verifyPassword($senha)) {
+            return "Sucesso: Login realizado. Bem-vindo, {$user->getNome()}!";
+        }
+
+        return 'Erro: Credenciais inválidas.';
     }
 
-    public function getEmail(): string
+    public function resetPassword(int $userId, string $novaSenha): string
     {
-        return $this->email;
+        if (!$this->validator->validatePasswordStrength($novaSenha)) {
+            return 'Erro: A nova senha não é forte o suficiente.';
+        }
+
+        foreach ($this->users as $user) {
+            if ($user->getId() === $userId) {
+                $user->setPassword($novaSenha);
+                return "Sucesso: Senha de '{$user->getNome()}' alterada.";
+            }
+        }
+
+        return 'Erro: Usuário não encontrado.';
     }
 }
-
-//“A classe User representa cada usuário do sistema.
-//Ela guarda informações importantes como ID, nome, email e senha (hash).
-//A senha nunca é armazenada em texto puro; usamos setPassword para gerar o hash e verifyPassword para validar no login.
-//Os getters permitem acessar os dados de forma segura.
