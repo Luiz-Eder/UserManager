@@ -1,11 +1,13 @@
-# Cadastro e Autenticação de Usuários
-### Projeto da disciplina Design Patterns & Clean Code.
+# Cadastro e Autenticação de Usuários ⭐
+### Projeto da disciplina Design Patterns & Clean Code. 
 
----
 
-Poliana Gomes Rodriguez - 2000444
+
+Poliana Gomes - 2000444
 
 Eder Luiz - 1971959
+
+---
 
 ## Funcionalidades Implementadas
 
@@ -31,32 +33,58 @@ Eder Luiz - 1971959
 ### Caso 1 — Cadastro válido
 
 Entrada: nome Maria Oliveira, email maria@email.com, senha Senha123.
-Saída esperada: Usuário cadastrado com sucesso.
 
+Saída esperada: Usuário cadastrado com sucesso.
 
 ### Caso 2 — Cadastro com e-mail inválido
 
 Entrada: nome Pedro, email pedro@@email, senha Senha123.
+
 Saída esperada: Erro: E-mail inválido.
 
 
 ### Caso 3 — Tentativa de login com senha errada
 
 Entrada: email eder@email.com, senha SenhaIncorreta.
+
 Saída esperada: Erro: Credenciais inválidas.
 
 
 ### Caso 4 — Reset de senha válido
 Entrada: id 2, nova senha NovaSenhaPoliana2.
+
 Saída esperada: Sucesso: Senha de 'Poliana' alterada.
 
 
 ### Caso 5 — Cadastro de usuário com e-mail duplicado
 Entrada: email já existente (eder@email.com).
+
 Saída esperada: Erro: E-mail já está em uso.
 
 
 ### Caso 6 — Login após reset de senha (extra)
 Entrada: email poliana@email.com, senha NovaSenhaPoliana2.
+
 Saída esperada: Sucesso: Login realizado. Bem-vindo, Poliana!
 
+---
+## Como executar
+
+- Clonar o repositório no GitHub.
+- Colocar o projeto dentro da pasta htdocs do XAMPP.
+- Iniciar o servidor Apache no XAMPP.
+- Acessar no navegador: http://localhost/projeto-usuarios/index.php
+
+---
+## Estrutura do Projeto
+
+```bash
+projeto-usuarios/
+├── docs/
+│   └── README.md
+├── src/
+│   ├── User.php
+│   ├── UserManager.php
+│   └── Validator.php
+└── index.php
+```
