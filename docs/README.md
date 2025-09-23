@@ -82,13 +82,13 @@ Saída esperada: Sucesso: Login realizado. Bem-vindo, Poliana!
 - Clonar o repositório no GitHub.
 - Colocar o projeto dentro da pasta htdocs do XAMPP.
 - Iniciar o servidor Apache no XAMPP.
-- Acessar no navegador: http://localhost/projeto-usuarios/index.php
+- Acessar no navegador: http://localhost/UserManager/index.php
 
 ---
 ## Estrutura do Projeto
 
 ```bash
-projeto-usuarios/
+UserManager/
 ├── docs/
 │   └── README.md
 ├── src/
