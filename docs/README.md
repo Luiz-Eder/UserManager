@@ -19,12 +19,12 @@ Eder Luiz - 1971959
 
 ### Login do usuário 
 - Valida se o e-mail e senha estão corretos.
-- Senha validada com password_verify.
+- Senha validada com `password_verify`.
 
 ### Reset de senha
 - Permite atualizar a senha de um usuário existente.
 - Aplica novamente as regras de senha forte.
-- Substitui pela nova senha com password_hash.
+- Substitui pela nova senha com `password_hash`.
 
 ---
 
