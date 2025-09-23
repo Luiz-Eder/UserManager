@@ -35,6 +35,8 @@ Eder Luiz - 1971959
 - O sistema não possui interface gráfica completa, funcionando apenas como simulação via index.php.
 -  Funciona apenas localmente com XAMPP, sem suporte para produção.
 
+---
+
 ## Exemplos de uso (Caso de testes)
 
 ### Caso 1 — Cadastro válido
