@@ -5,36 +5,36 @@ namespace App;
 class User
 {
     private int $id;
-    private string $nome;
+    private string $name;
     private string $email;
-    private string $senhaHash;
+    private string $passwordHash;
 
-    public function __construct(int $id, string $nome, string $email, string $senha)
+    public function __construct(int $id, string $name, string $email, string $password)
     {
         $this->id = $id;
-        $this->nome = $nome;
+        $this->name = $name;
         $this->email = $email;
-        $this->setPassword($senha);
+        $this->setPassword($password);
     }
 
-    public function setPassword(string $senha): void
+    public function setPassword(string $password): void
     {
-        $this->senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+        $this->passwordHash = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function verifyPassword(string $senha): bool
+    public function verifyPassword(string $password): bool
     {
-        return password_verify($senha, $this->senhaHash);
+        return password_verify($password, $this->passwordHash);
     }
-
+    
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getNome(): string
+    public function getName(): string
     {
-        return $this->nome;
+        return $this->name;
     }
 
     public function getEmail(): string
