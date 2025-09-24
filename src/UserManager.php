@@ -18,6 +18,18 @@ class UserManager
             new User(2, 'Poliana', 'poliana@email.com', 'SenhaPoliana2'),
         ];
     }
+    
+    // Gera um novo ID de usuário, buscando o maior ID atual
+    private function getNextUserId(): int
+    {
+        $maxId = 0;
+        foreach ($this->users as $user) {
+            if ($user->getId() > $maxId) {
+                $maxId = $user->getId();
+            }
+        }
+        return $maxId + 1;
+    }
 
     private function findUserByEmail(string $email): ?User
     {
@@ -26,54 +38,55 @@ class UserManager
                 return $user;
             }
         }
-
         return null;
     }
 
-    public function register(string $nome, string $email, string $senha): string
+    public function register(string $name, string $email, string $password): string
     {
         if (!$this->validator->validateEmail($email)) {
-            return 'Erro: E-mail inválido.';
+            return "Erro: Email invalido.";
         }
-
+        
         if ($this->findUserByEmail($email)) {
-            return 'Erro: E-mail já está em uso.';
+            return "Erro: Email ja em uso.";
         }
 
-        if (!$this->validator->validatePasswordStrength($senha)) {
-            return 'Erro: A senha deve ter no mínimo 8 caracteres, 1 número e 1 letra maiúscula.';
+        $passwordError = $this->validator->validatePasswordStrength($password);
+        if ($passwordError !== "") {
+            return $passwordError;
         }
 
-        $newId = end($this->users)->getId() + 1;
-        $this->users[] = new User($newId, $nome, $email, $senha);
+        $newId = $this->getNextUserId();
+        $this->users[] = new User($newId, $name, $email, $password);
 
-        return "Sucesso: Usuário '{$nome}' cadastrado.";
+        return "Succeso: Usuario '{$name}' registrado.";
     }
 
-    public function login(string $email, string $senha): string
+    public function login(string $email, string $password): string
     {
         $user = $this->findUserByEmail($email);
-
-        if ($user && $user->verifyPassword($senha)) {
-            return "Sucesso: Login realizado. Bem-vindo, {$user->getNome()}!";
+        
+        if ($user && $user->verifyPassword($password)) {
+            return "Bem vindo, {$user->getName()}!";
+        } else {
+            return "Erro: Login ou senha invalido.";
         }
-
-        return 'Erro: Credenciais inválidas.';
     }
 
-    public function resetPassword(int $userId, string $novaSenha): string
+    public function resetPassword(int $userId, string $newPassword): string
     {
-        if (!$this->validator->validatePasswordStrength($novaSenha)) {
-            return 'Erro: A nova senha não é forte o suficiente.';
+        $passwordError = $this->validator->validatePasswordStrength($newPassword);
+        if ($passwordError !== "") {
+            return $passwordError;
         }
 
         foreach ($this->users as $user) {
             if ($user->getId() === $userId) {
-                $user->setPassword($novaSenha);
-                return "Sucesso: Senha de '{$user->getNome()}' alterada.";
+                $user->setPassword($newPassword);
+                return "Successo: Sua senha '{$user->getName()}' foi alterada.";
             }
         }
 
-        return 'Erro: Usuário não encontrado.';
+        return "Erro: Usuario nao encontrado";
     }
 }
